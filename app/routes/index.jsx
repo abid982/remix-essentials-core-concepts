@@ -1,5 +1,7 @@
 import { Link } from '@remix-run/react';
 
+import homeStyles from '~/styles/home.css';
+
 export default function Index() {
   return (
     <main id="content">
@@ -10,4 +12,10 @@ export default function Index() {
       </p>
     </main>
   );
+}
+
+export function links() {
+  // Page Specific Styling
+  // Now we define some links that only apply CSS to this page and Remix will automatically create the link tag and inject them in the head section when this page is loaded
+  return [{ rel: 'stylesheet', href: homeStyles }];
 }
