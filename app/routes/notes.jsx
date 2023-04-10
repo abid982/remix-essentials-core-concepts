@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { useActionData, useLoaderData } from '@remix-run/react';
+import { Link, useActionData, useLoaderData } from '@remix-run/react';
 import NewNote, { links as newNoteLinks } from '~/components/NewNote';
 // import newNotesStyles from '~/components/NewNote.css';
 
@@ -49,7 +49,9 @@ export async function loader() {
 
 export async function action({ request }) {
   // console.log('Data:');
-  // console.log(data);
+  // console.log(data);\
+
+  // The database could temporarily be unavailable so saving the data could fail and also in case of reading the data.
 
   const formData = await request.formData();
   console.log(formData);
@@ -101,3 +103,18 @@ export function links() {
 // export function links() {
 //   return [{ rel: 'stylesheet', href: newNotesStyles }];
 // }
+
+// Add a seprate error boundary
+export function ErrorBoundary(error) {
+  // The page content will be replaced by error. It will be injected in default skeleton in place of the Outlet
+  return (
+    <main className="error">
+      {/* <Outlet /> */}
+      <h1>An error related to your notes occured!</h1>
+      <p>{error.message}</p>
+      <p>
+        Back to <Link to="/">home</Link>
+      </p>
+    </main>
+  );
+}
