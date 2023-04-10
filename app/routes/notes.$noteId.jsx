@@ -64,3 +64,10 @@ export async function loader({ params }) {
 export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
+
+// Data returned by loader
+// Title of a specific title
+export const meta = ({ data }) => ({
+  title: data.title,
+  description: 'Manage your notes with ease',
+});

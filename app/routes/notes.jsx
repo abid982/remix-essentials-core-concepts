@@ -7,6 +7,12 @@ import NoteList, { links as noteListLinks } from '~/components/NoteList';
 
 import { getStoredNotes, storeNotes } from '~/data/notes';
 
+// Official documentation
+export const meta = () => ({
+  title: 'All Notes',
+  description: 'Manage your notes with ease',
+});
+
 export default function NotesPage() {
   // In this component we now gets access to these notes to the data returned by the loader by using a special hook provided by Remix i.e the useLoaderData() hook
   // The loader data that gets access to the data returned by loader
