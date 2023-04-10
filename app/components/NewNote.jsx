@@ -2,7 +2,7 @@ import styles from './NewNote.css';
 
 function NewNote() {
   return (
-    <form method="post" id="note-form" action>
+    <form method="post" id="note-form">
       <p>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" name="title" required />
