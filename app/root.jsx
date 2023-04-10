@@ -40,6 +40,8 @@ export default function App() {
   );
 }
 
+export function catchBoundary() {}
+
 // Show your own error page
 // Export a new Remix function ErrorBoundary() and its actually a component which we're exporting here
 // Remix will be looking for this

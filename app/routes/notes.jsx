@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Link, useActionData, useLoaderData } from '@remix-run/react';
+import { Link, useCatch, useActionData, useLoaderData } from '@remix-run/react';
 import NewNote, { links as newNoteLinks } from '~/components/NewNote';
 // import newNotesStyles from '~/components/NewNote.css';
 
@@ -37,6 +37,25 @@ export async function loader() {
 
   const notes = await getStoredNotes();
 
+  // Throw error and error boundary will be used
+  // throw 'Error';
+
+  // Whenever you throw response Remix recognizes this and renders a different component than the error boundary
+  if (!notes || notes.length === 0) {
+    // When you throw some text or a regular object then the ErrorBoundary will be used.
+    // throw 'Error';
+
+    // Whenever you throw a response generated with a json() helper function another component catchBoundary() function will be used.
+    throw json(
+      { message: 'Could not find any notes' },
+      {
+        status: 404,
+        statusText: 'Not Found',
+      }
+    );
+  }
+
+  // Whenever you return then the default component page will be used.
   // Serialized data
   return notes;
 
@@ -103,6 +122,24 @@ export function links() {
 // export function links() {
 //   return [{ rel: 'stylesheet', href: newNotesStyles }];
 // }
+
+// It catches an responses. You can add it per route level or added it on the the root level
+export function CatchBoundary() {
+  // To get hold of error data we can use another special hook provided by Remix
+  // It returns an object based on error response
+  const catughtResponse = useCatch();
+  // catughtResponse.data
+  // catughtResponse.status
+  // catughtResponse.statusText
+  const message = catughtResponse.data?.message || 'Data not found';
+
+  return (
+    <main>
+      <NewNote />
+      <p className="info-message">{message}</p>
+    </main>
+  );
+}
 
 // Add a seprate error boundary
 export function ErrorBoundary(error) {
