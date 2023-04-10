@@ -7,7 +7,9 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 
-import styles from './styles/main.css';
+// import styles from './styles/main.css';
+// Note: The ~ symbol always looking for your app folder
+import styles from '~/styles/main.css';
 
 export const meta = () => ({
   charset: 'utf-8',
