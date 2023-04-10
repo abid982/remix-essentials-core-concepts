@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
 } from '@remix-run/react';
 
 import MainNavigation from './components/MainNavigation';
@@ -40,7 +41,36 @@ export default function App() {
   );
 }
 
-export function catchBoundary() {}
+export function CatchBoundary() {
+  const catughtResponse = useCatch();
+  console.log('Caught response:');
+  console.log(catughtResponse);
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+        <title>{catughtResponse.statusText}</title>
+      </head>
+      <body>
+        {/* <Outlet /> */}
+        <header>
+          <MainNavigation />
+        </header>
+        <main className="error">
+          <h1>{catughtResponse.statusText}</h1>
+          <p>{catughtResponse.data.message}</p>
+          <p>
+            Back to <Link to="/">home</Link>
+          </p>
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  );
+}
 
 // Show your own error page
 // Export a new Remix function ErrorBoundary() and its actually a component which we're exporting here

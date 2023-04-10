@@ -66,7 +66,7 @@ export async function loader() {
   // return json(notes);
 }
 
-export async function action({ request }) {
+export async function action({ request, params }) {
   // console.log('Data:');
   // console.log(data);\
 
